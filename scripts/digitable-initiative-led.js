@@ -12,16 +12,18 @@ class DigiTableInitiativeLED  {
     this.settings();
     this.seats_power = {
       0: {"on":false,"bri":255},
-      1: {"on":true,"bri":255}
+      1: {"on":true,"bri":255, "col":[255,0,0]}
     };
-    this.seats_off = {"seg":{"i":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]}};
+    this.seats_off = {"seg":[{"id":0,"on":false},{"id":1,"on":false},{"id":2,"on":false},{"id":3,"on":false},{"id":4,"on":false},{"id":5,"on":false}]};
     this.seats = {
-      0: {"seg":{"i":[[255,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]}},
-      1: {"seg":{"i":[[0,0,0],[255,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]}},
-      2: {"seg":{"i":[[0,0,0],[0,0,0],[255,0,0],[0,0,0],[0,0,0],[0,0,0]]}},
-      3: {"seg":{"i":[[0,0,0],[0,0,0],[0,0,0],[255,0,0],[0,0,0],[0,0,0]]}},
-      4: {"seg":{"i":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[255,0,0],[0,0,0]]}},
-      5: {"seg":{"i":[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[255,0,0]]}}
+      0: {"seg":[{"id":0,"on":true},{"id":1,"on":false},{"id":2,"on":false},{"id":3,"on":false},{"id":4,"on":false},{"id":5,"on":false}]},
+      1: {"seg":[{"id":0,"on":false},{"id":1,"on":true},{"id":2,"on":false},{"id":3,"on":false},{"id":4,"on":false},{"id":5,"on":false}]},
+      2: {"seg":[{"id":0,"on":false},{"id":1,"on":false},{"id":2,"on":true},{"id":3,"on":false},{"id":4,"on":false},{"id":5,"on":false}]},
+      3: {"seg":[{"id":0,"on":false},{"id":1,"on":false},{"id":2,"on":false},{"id":3,"on":true},{"id":4,"on":false},{"id":5,"on":false}]},
+      4: {"seg":[{"id":0,"on":false},{"id":1,"on":false},{"id":2,"on":false},{"id":3,"on":false},{"id":4,"on":true},{"id":5,"on":false}]},
+      5: {"seg":[{"id":0,"on":false},{"id":1,"on":false},{"id":2,"on":false},{"id":3,"on":false},{"id":4,"on":false},{"id":5,"on":true}]}
+      
+
     };
   }
   static set_actor_led(actorId) {
@@ -47,6 +49,7 @@ class DigiTableInitiativeLED  {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(values),
+        mode: 'no-cors'
       });
       if (!response.ok) {
         throw new Error(`Error during POST request: ${response.statusText}`);
@@ -159,3 +162,4 @@ Hooks.on("deleteCombat", (combat) => {
 Hooks.on("createCombat", (combat) => {
   DigiTableInitiativeLED.startInitiative();
 });
+
